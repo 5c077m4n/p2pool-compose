@@ -54,3 +54,19 @@ services:
       --stratum "0.0.0.0:${P2POOL_STRATUM_PORT}" --p2p "0.0.0.0:${P2POOL_P2P_PORT}"
       --addpeers "${P2POOL_SEED_PEERS}"
       --loglevel "${P2POOL_LOG_LEVEL}"
+
+  # xmrig:
+  #   build:
+  #     context: docker/xmrig
+  #   restart: always
+  #   tty: true
+  #   stdin_open: true
+  #   read_only: true
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   networks:
+  #     - monero-pool
+  #   depends_on:
+  #     - p2pool
+  #   command: >-
+  #     --user "${P2POOL_WALLET_ADDRESS}"

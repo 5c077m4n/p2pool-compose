@@ -9,8 +9,6 @@
 			"coin": "monero",
 			"algo": null,
 			"url": "p2pool:3333",
-			"user": "",
-			"pass": "",
 			"tls": false,
 			"keepalive": true,
 			"nicehash": false
