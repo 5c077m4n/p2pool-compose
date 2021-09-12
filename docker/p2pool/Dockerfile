@@ -11,9 +11,11 @@ WORKDIR build
 RUN cmake ..
 RUN make -j$(($(nproc) - 1))
 
-FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install --yes dumb-init curl jq
+FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install --yes dumb-init curl jq libuv1-dev libzmq3-dev libsodium-dev libpgm-dev libnorm-dev libgss-dev
 
 RUN mkdir /p2pool
 WORKDIR /p2pool
