@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 AS builder
+FROM debian:bullseye-slim AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 ARG ref=origin/master
@@ -18,13 +18,12 @@ RUN apt-get update && \
 RUN git clone --recursive https://github.com/SChernykh/p2pool /src/p2pool && \
 	cd /src/p2pool && git reset --hard ${ref} && git submodule sync && \
 	mkdir build && cd build && \
-	CFLAGS="-march=native -mtune=native -Ofast -Wno-error=unused-variable" CXXFLAGS="-march=native -mtune=native -Ofast -Wno-error=unused-variable" \
-	cmake .. && \
+	CFLAGS="-march=native -mtune=native -Ofast -Wno-error=unused-variable" CXXFLAGS="-march=native -mtune=native -Ofast -Wno-error=unused-variable" cmake .. && \
 	make -j$(($(nproc) - 1))
 
-FROM ubuntu:20.04
-ENV DEBIAN_FRONTEND=noninteractive
+FROM debian:bullseye-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
 	apt-get install -y \
 		libuv1 \
@@ -45,9 +44,6 @@ COPY --from=builder /src/p2pool/config.json /p2pool/config.json
 EXPOSE 3333 37889
 
 WORKDIR /p2pool/data
-
-RUN adduser --group --disabled-password monero
-USER monero
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["dumb-init", "/entrypoint.sh"]
