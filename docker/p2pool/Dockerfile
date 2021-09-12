@@ -1,4 +1,5 @@
 FROM ubuntu:20.04 AS builder
+
 ENV DEBIAN_FRONTEND=noninteractive
 ARG ref=origin/master
 
