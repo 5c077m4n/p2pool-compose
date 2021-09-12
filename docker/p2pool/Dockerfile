@@ -19,13 +19,13 @@ RUN git clone --recursive https://github.com/SChernykh/p2pool /src/p2pool && \
 	mkdir build && cd build && \
 	CFLAGS="-march=native -mtune=native -Ofast -Wno-error=unused-variable" CXXFLAGS="-march=native -mtune=native -Ofast -Wno-error=unused-variable" \
 	cmake .. && \
-	make -j$(nproc)
+	make -j$(($(nproc) - 1))
 
 FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && \
-	apt install -y \
+RUN apt-get update && \
+	apt-get install -y \
 		libuv1 \
 		libzmq5 \
 		libsodium23 \

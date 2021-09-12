@@ -1,10 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
-exec "/monerod" \
-	--data-dir /var/monero \
+monerod \
 	--zmq-pub=tcp://0.0.0.0:18083 --rpc-bind-ip=0.0.0.0 --rpc-bind-port 18081 \
 	--non-interactive --confirm-external-bind --restricted-rpc --allow-local-ip --no-igd \
-	--fast-block-sync 1 --prep-blocks-threads $(($(nproc) - 1)) --sync-pruned-blocks --prune-blockchain --check-updates disabled \
+	--fast-block-sync 1 --max-concurrency $(($(nproc) - 1)) --prep-blocks-threads $(($(nproc) - 1)) --sync-pruned-blocks --prune-blockchain \
 	--enforce-dns-checkpointing \
 	--in-peers 64 \
 	--out-peers 128 \
