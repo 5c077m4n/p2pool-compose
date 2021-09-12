@@ -13,7 +13,7 @@ RUN make -j$(($(nproc) - 1))
 
 FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install --yes dumb-init
+RUN apt-get update && apt-get install --yes dumb-init curl jq
 
 RUN mkdir /p2pool
 WORKDIR /p2pool

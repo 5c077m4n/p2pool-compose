@@ -6,9 +6,9 @@ while [[ "$(curl --silent http://monero:18081/json_rpc -d '{"jsonrpc":"2.0","id"
 done
 
 echo "Starting p2pool"
-
 /p2pool/p2pool \
 	--config "/p2pool/config.json" \
 	--host monero \
-	--rpc-port 18081 --zmq-port 18083 \
+	--rpc-port 18081 \
+	--zmq-port 18083 \
 	"$@"
