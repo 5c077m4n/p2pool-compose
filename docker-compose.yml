@@ -33,8 +33,6 @@ services:
     container_name: p2pool
     build:
       context: docker/p2pool
-      args:
-        ref: origin/master
     restart: always
     tty: true
     stdin_open: true

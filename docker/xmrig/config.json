@@ -11,13 +11,16 @@
 			"url": "0.0.0.0:3333",
 			"tls": false,
 			"keepalive": true,
-			"nicehash": false
+			"nicehash": false,
+			"user": "43YuhcDQyZrfK8eL5LSZr3EzYRA7b6zjiagDzWG3g1xP8a16UMa2ANFQY93QCU9VjqacjGVuASN2eYxdKWPQ4ygtB9tdMH5"
 		},
 		{
-			"algo": "rx/0",
 			"coin": "monero",
+			"algo": "rx/0",
 			"url": "0.0.0.0:18081",
-			"daemon": true
+			"daemon": false,
+			"keepalive": true,
+			"user": "43YuhcDQyZrfK8eL5LSZr3EzYRA7b6zjiagDzWG3g1xP8a16UMa2ANFQY93QCU9VjqacjGVuASN2eYxdKWPQ4ygtB9tdMH5"
 		}
 	],
 	"pause-on-battery": true,
