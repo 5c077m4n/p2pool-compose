@@ -24,9 +24,9 @@ services:
     volumes:
       - monero:/root/.bitmonero
     ports:
-      - "18080:18080"
+      - 18080:18080
     command: >-
-      --p2p-external-port "${MONERO_EXTERNAL_P2P_PORT}"
+      --p2p-external-port 18080
 
   p2pool:
     build:
@@ -45,28 +45,29 @@ services:
       - monero
     volumes:
       - p2pool:/p2pool/data:rw
-      - "${HUGEPAGES_MOUNT}:/dev/hugepages:rw"
     ports:
-      - "${P2POOL_STRATUM_PORT}:${P2POOL_STRATUM_PORT}"
-      - "${P2POOL_P2P_PORT}:${P2POOL_P2P_PORT}"
+      - 3333:3333
+      - 37889:37889
     command: >-
       --wallet "${P2POOL_WALLET_ADDRESS}"
-      --stratum "0.0.0.0:${P2POOL_STRATUM_PORT}" --p2p "0.0.0.0:${P2POOL_P2P_PORT}"
+      --stratum "0.0.0.0:3333"
+      --p2p "0.0.0.0:37889"
       --addpeers "${P2POOL_SEED_PEERS}"
       --loglevel "${P2POOL_LOG_LEVEL}"
 
-  # xmrig:
-  #   build:
-  #     context: docker/xmrig
-  #   restart: always
-  #   tty: true
-  #   stdin_open: true
-  #   read_only: true
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   networks:
-  #     - monero-pool
-  #   depends_on:
-  #     - p2pool
-  #   command: >-
-  #     --user "${P2POOL_WALLET_ADDRESS}"
+  xmrig:
+    build:
+      context: docker/xmrig
+    restart: always
+    tty: true
+    stdin_open: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - monero-pool
+    depends_on:
+      - p2pool
+      - monero
+    command: >-
+      --user "${P2POOL_WALLET_ADDRESS}"
